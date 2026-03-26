@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ff hack</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#00ffcc">
+    <link rel="stylesheet" href="style.css">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="ff hack">
+    <link rel="apple-touch-icon" href="icon-192x192.png">
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <h1>FF HACK <span class="badge">PRO</span></h1>
+        </header>
+        
+        <main>
+            <div class="card">
+                <h2>Trạng thái hệ thống</h2>
+                <p class="status">Đang chờ kết nối...</p>
+                <button id="activateBtn" class="btn-neon">KÍCH HOẠT NGAY</button>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Đăng ký Service Worker để web có thể chạy offline và cài đặt
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(reg => console.log('Service Worker đã đăng ký thành công', reg))
+                    .catch(err => console.error('Lỗi đăng ký Service Worker', err));
+            });
+        }
+
+        // Hiệu ứng nút bấm đơn giản
+        document.getElementById('activateBtn').addEventListener('click', function() {
+            const statusText = document.querySelector('.status');
+            this.innerText = "ĐANG XỬ LÝ...";
+            this.classList.add('loading');
+            
+            setTimeout(() => {
+                this.innerText = "ĐÃ KÍCH HOẠT";
+                this.classList.remove('loading');
+                this.classList.add('success');
+                statusText.innerText = "Hệ thống đã kết nối thành công!";
+                statusText.style.color = "#00ffcc";
+            }, 2000);
+        });
+    </script>
+</body>
+</html>

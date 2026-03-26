@@ -1,0 +1,21 @@
+{
+  "name": "ff hack",
+  "short_name": "ff hack",
+  "description": "Ứng dụng công cụ tối ưu",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#121212",
+  "theme_color": "#00ffcc",
+  "icons": [
+    {
+      "src": "icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
