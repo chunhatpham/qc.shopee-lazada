@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Quảng Cáo Đen - chunhatpham</title>
+    <style>
+        /* Cài đặt cơ bản */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+        }
+
+        /* Khung chính của bảng quảng cáo */
+        .ad-container {
+            background-color: #141414;
+            width: 100%;
+            max-width: 420px;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+            border: 1px solid #2a2a2a;
+            overflow: hidden;
+            position: relative;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        /* Phần Header */
+        .ad-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            border-bottom: 1px solid #2a2a2a;
+        }
+
+        .brand-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-img {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid #333;
+        }
+
+        .brand-name {
+            font-weight: 700;
+            color: #ffffff;
+            font-size: 16px;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #666666;
+            cursor: pointer;
+            line-height: 1;
+            transition: color 0.2s ease;
+        }
+
+        .close-btn:hover {
+            color: #ff4757;
+        }
+
+        /* Khung Hình Ảnh */
+        .image-frame {
+            width: 100%;
+            height: 250px;
+            background-color: #1e1e1e;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-bottom: 1px solid #2a2a2a;
+            overflow: hidden;
+        }
+
+        .image-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+        }
+
+        .placeholder-text {
+            color: #555555;
+            font-style: italic;
+            font-size: 14px;
+        }
+
+        /* Khung nội dung chi tiết */
+        .content-box {
+            padding: 24px 20px 15px 20px;
+        }
+
+        .content-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+
+        .content-desc {
+            font-size: 14px;
+            color: #a0a0a0;
+            line-height: 1.6;
+        }
+
+        .watermark-text {
+            font-size: 12px;
+            color: #444444;
+            margin-top: 15px;
+            text-align: left;
+            font-style: italic;
+            letter-spacing: 0.5px;
+        }
+
+        .screen-watermark {
+            position: fixed;
+            bottom: 15px;
+            right: 20px;
+            color: #333333;
+            font-size: 12px;
+            font-style: italic;
+            letter-spacing: 1px;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Khung Nút Bấm */
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+            padding: 0 20px 24px 20px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 12px 0;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-buy {
+            background: linear-gradient(135deg, #ff4757 0%, #ff6b81 100%);
+            color: white;
+            border: none;
+            box-shadow: 0 4px 15px rgba(255, 71, 87, 0.2);
+        }
+
+        .btn-buy:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 71, 87, 0.4);
+        }
+
+        .btn-continue {
+            background-color: transparent;
+            color: #cccccc;
+            border: 1px solid #444444;
+        }
+
+        .btn-continue:hover {
+            background-color: #2a2a2a;
+            color: #ffffff;
+            border-color: #666666;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ad-container" id="myAd">
+        
+        <div class="ad-header">
+            <div class="brand-info">
+                <img src="https://i.postimg.cc/GtDYSJvW/2EE326B4-92D7-4B4E-B379-F336B91291C3.png" alt="Logo" class="logo-img">
+                <span class="brand-name">chunhatpham</span>
+            </div>
+            <button class="close-btn" onclick="redirectPage()">&times;</button>
+        </div>
+
+        <div class="image-frame">
+            <span class="placeholder-text" id="loadingText">Đang tải hình ảnh...</span>
+            <img id="adImage" src="" alt="Sản phẩm quảng cáo">
+        </div>
+
+        <div class="content-box">
+            <h2 class="content-title" id="adTitle">Đang tải tiêu đề...</h2>
+            <div class="content-desc" id="adDesc">
+                Đang tải nội dung...
+            </div>
+            <div class="watermark-text">lazada và shopee</div>
+        </div>
+
+        <div class="action-buttons">
+            <button class="btn btn-buy" id="btnBuy">Mua</button>
+            <button class="btn btn-continue" id="btnContinue">Tiếp tục để xem</button>
+        </div>
+
+    </div>
+
+    <div class="screen-watermark">chunhatpham.online</div>
+
+    <script>
+        // HÀM CHUYỂN HƯỚNG KHI BẤM NÚT X
+        function redirectPage() {
+            window.location.href = 'https://chunhatpham.online';
+        }
+
+        // ==========================================
+        // KHU VỰC CẬP NHẬT DỮ LIỆU SẢN PHẨM
+        // ==========================================
+        const danhSachSanPham = [
+            // SẢN PHẨM 1: Quạt mini
+            {
+                anh: "https://i.postimg.cc/DwTD6x1R/IMG-0346.jpg",
+                tieuDe: "Quạt mini cầm tay",
+                noiDung: "Deal siêu hời trên Lazada. Mua ngay!<br><br><b>Tên sản phẩm:</b> Goojodoq Quạt mini cầm tay siêu mạnh, quạt tích điện mini 4000 mAh, quạt mini sạc điện sạc nhanh 1.5h, màn hình kỹ thuật số, thích hợp đi du lịch, hoạt động ngoài trời.<br><br><b>Giá bán:</b> <del>₫400,000</del><br><b>Giá đã giảm:</b> <span style='color: #ff4757; font-size: 16px; font-weight: bold;'>₫236,980</span>",
+                linkQuangCao: "https://s.lazada.vn/s.7xGGk?cc&t=p-i2sKiPx-sG9cjRs"
+            },
+            // SẢN PHẨM 2: Sạc dự phòng Vention
+            {
+                anh: "https://i.postimg.cc/2STDBsgH/IMG-0350.jpg",
+                tieuDe: "Deal siêu hời trên Lazada. Mua ngay!",
+                noiDung: "<b>Tên sản phẩm:</b> Vention Sạc Dự Phòng 20000mAh 22.5W - 3 Cổng Sạc, Sạc Nhanh PD QC, Màn Hình LED Số, Chống Nóng - Đen / Trắng - Hàng Chính Hãng.<br><br><b>Giá bán:</b> <del>₫665,000</del><br><b>Giá đã giảm:</b> <span style='color: #ff4757; font-size: 16px; font-weight: bold;'>₫279,000</span>",
+                linkQuangCao: "https://s.lazada.vn/s.7xGB7?cc&t=p-i2nsEIY-sDkQWrP"
+            },
+            // SẢN PHẨM 3: Giấy ăn Top Gia
+            {
+                anh: "https://i.postimg.cc/pTrXTWTF/IMG-0351.jpg",
+                tieuDe: "Deal siêu hời trên Lazada. Mua ngay!",
+                noiDung: "<b>Tên sản phẩm:</b> Giấy ăn rút thùng 30 gói, Khăn giấy cao cấp Top Gia 4 lớp dày dặn an toàn cho mọi làn da.<br><br><b>Giá bán:</b> <del>₫190,000</del><br><b>Giá đã giảm:</b> <span style='color: #ff4757; font-size: 16px; font-weight: bold;'>₫145,000</span>",
+                linkQuangCao: "https://s.lazada.vn/s.7xu17?cc&t=p-i1x0G16-s8lY8qg"
+            }
+        ];
+
+        // HÀM HIỂN THỊ NGẪU NHIÊN
+        function hienThiNgauNhien() {
+            // Chọn 1 con số ngẫu nhiên từ 0 đến tổng số sản phẩm hiện có
+            const viTriNgauNhien = Math.floor(Math.random() * danhSachSanPham.length);
+            const sanPhamDuocChon = danhSachSanPham[viTriNgauNhien];
+
+            // 1. Cập nhật Hình ảnh
+            if (sanPhamDuocChon.anh !== "") {
+                document.getElementById('adImage').src = sanPhamDuocChon.anh;
+                document.getElementById('adImage').style.display = 'block';
+                document.getElementById('loadingText').style.display = 'none';
+            }
+
+            // 2. Cập nhật Tiêu đề và Nội dung
+            document.getElementById('adTitle').innerText = sanPhamDuocChon.tieuDe;
+            document.getElementById('adDesc').innerHTML = sanPhamDuocChon.noiDung;
+
+            // 3. Cập nhật Link cho Nút Mua và Nút Tiếp tục
+            document.getElementById('btnBuy').onclick = function() {
+                window.location.href = sanPhamDuocChon.linkQuangCao;
+            };
+            document.getElementById('btnContinue').onclick = function() {
+                window.location.href = sanPhamDuocChon.linkQuangCao;
+            };
+        }
+
+        // Gọi hàm hiển thị ngẫu nhiên ngay khi trang web vừa tải xong
+        window.onload = hienThiNgauNhien;
+    </script>
+
+</body>
+</html>
