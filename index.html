@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Mướp Audio - Thiên Đường Giải Trí</title>
+    <meta name="description" content="Chào mừng bạn đến với thiên đường giải trí Mướp Audio – nền tảng chuyên cung cấp truyện hoạt hình & truyện tranh Audio Vietsub chất lượng cao, nội dung hay và mới lạ nhất.">
+    <link rel="icon" href="https://i.postimg.cc/PqCsPZtW/IMG-1910.jpg" type="image/jpeg">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="adProgressToast" class="ad-progress-toast">
+        <i class="fa-solid fa-shield-halved" style="color: var(--accent-color);"></i>
+        <span id="adProgressText">Tiến Độ: 0/3</span>
+    </div>
+
+    <div class="modal-overlay active" id="welcomeAlertModal">
+        <div class="modal-box">
+            <i class="fa-solid fa-hand-sparkles" style="font-size: 45px; color: var(--accent-color); margin-bottom: 20px;"></i>
+            <h3>Chào Mừng!</h3>
+            <p>Chào mừng bạn đến với web Mướp Audio. Chúng tôi luôn cập nhật phim hay và mới nhất tại đây ạ !!!</p>
+            <button onclick="closeWelcomeAlert()" class="btn-primary">Đã hiểu</button>
+        </div>
+    </div>
+
+    <!-- HIỆU ỨNG LOADING -->
+    <div class="loader-overlay" id="loader">
+        <div class="spinner-container">
+            <div class="spinner-ring"></div>
+            <img src="https://i.postimg.cc/PqCsPZtW/IMG-1910.jpg" alt="Loading Avatar" class="loader-avatar">
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="customModal">
+        <div class="modal-box">
+            <i class="fa-solid fa-bell" id="modalIcon" style="font-size: 45px; margin-bottom: 20px;"></i>
+            <h3 id="modalTitle">Thông báo</h3>
+            <p id="modalMessage">Nội dung thông báo...</p>
+            <button onclick="closeModal()" class="btn-primary">Đóng</button>
+        </div>
+    </div>
+
+    <div class="overlay" id="menuOverlay"></div>
+
+    <div class="movie-detail-modal" id="movieDetailModal">
+        <div class="movie-detail-box">
+            <button class="close-detail-btn" onclick="closeMovieDetail()"><i class="fa-solid fa-xmark"></i></button>
+            <div class="detail-poster" id="detailPoster"></div>
+            <h2 class="detail-title" id="detailTitle">Tên Phim Đang Cập Nhật</h2>
+            <div class="detail-publisher"><i class="fa-solid fa-building"></i> Nhà xuất bản: Mướp Audio</div>
+            
+            <div class="media-container">
+                <button class="btn-primary watch-now-btn" id="watchNowBtn" style="width: 100%; justify-content: center;">
+                    <i class="fa-solid fa-play"></i> Xem Ngay
+                </button>
+                
+                <div class="custom-audio-player" id="customAudioPlayer" style="display: none;">
+                    <audio id="audioPlayer" preload="auto"></audio>
+                    
+                    <div class="progress-area">
+                        <span id="currentTime">00:00</span>
+                        <input type="range" id="progressBar" value="0" min="0" step="1">
+                        <span id="totalTime">00:00</span>
+                    </div>
+
+                    <div class="controls-area">
+                        <button class="ctrl-btn text-btn" id="speedBtn" title="Tốc độ phát">1.0x</button>
+                        <button class="ctrl-btn" id="rewindBtn" title="Lùi 10 giây"><i class="fa-solid fa-rotate-left"></i></button>
+                        
+                        <button class="play-pause-btn" id="playPauseBtn">
+                            <i class="fa-solid fa-play" id="playIcon"></i>
+                        </button>
+                        
+                        <button class="ctrl-btn" id="forwardBtn" title="Tiến 10 giây"><i class="fa-solid fa-rotate-right"></i></button>
+                        <button class="ctrl-btn" id="muteBtn" title="Tắt/Mở âm thanh"><i class="fa-solid fa-volume-high" id="volumeIcon"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <header>
+        <div class="logo-container" id="logoBtn">
+            <img src="https://i.postimg.cc/PqCsPZtW/IMG-1910.jpg" alt="Mướp Audio Logo">
+            <h1>Mướp Audio</h1>
+        </div>
+
+        <div class="right-actions">
+            <i class="fa-solid fa-magnifying-glass action-icon" id="searchBtn" title="Tìm kiếm"></i>
+            <i class="fa-solid fa-bars action-icon" id="menuBtn" title="Menu"></i>
+        </div>
+    </header>
+
+    <nav class="side-menu" id="sideMenu">
+        <div class="side-menu-header">
+            <h2>Mục Lục</h2>
+            <i class="fa-solid fa-xmark close-menu-icon" id="closeMenuBtn" title="Đóng"></i>
+        </div>
+        <div class="side-menu-links">
+            <a href="#" class="nav-link active-link" data-target="home-tab"><i class="fa-solid fa-house"></i> Trang chủ</a>
+            <a href="#" class="nav-link" data-target="list-tab"><i class="fa-solid fa-list-ul"></i> Danh sách</a>
+            <a href="#" class="nav-link" data-target="contact-tab"><i class="fa-solid fa-headset"></i> Liên hệ</a>
+        </div>
+    </nav>
+
+    <div class="search-bar-container" id="searchBar">
+        <div class="search-wrapper">
+            <input type="text" id="searchInput" placeholder="Nhập tên truyện cần tìm...">
+            <button type="button" id="executeSearch">Tìm kiếm</button>
+        </div>
+    </div>
+
+    <div class="chat-bubble" title="Chat với Hỗ trợ viên" onclick="window.open('https://t.me/nhatpham27', '_blank')">
+        <i class="fa-solid fa-message"></i>
+    </div>
+
+    <main>
+        <div id="home-tab" class="tab-content active">
+            <div class="section-header">
+                <h2>Mới nhất</h2>
+            </div>
+            <div class="movie-grid-container" id="home-movie-grid"></div>
+        </div>
+
+        <div id="list-tab" class="tab-content">
+            <div class="section-header">
+                <h2>Kho Truyện Đầy Đủ</h2>
+            </div>
+            <div class="movie-grid-container" id="list-movie-grid"></div>
+            <div class="pagination-container" id="list-pagination"></div>
+        </div>
+
+        <div id="contact-tab" class="tab-content">
+            <div class="contact-page-title">
+                <i class="fa-solid fa-headset"></i> Trung Tâm Trợ Giúp
+            </div>
+            <div class="contact-container">
+                <div class="form-title"><i class="fa-solid fa-paper-plane"></i> Gửi yêu cầu hỗ trợ</div>
+                <input type="text" class="form-input" placeholder="Họ và tên hoặc Username *">
+                <input type="text" class="form-input" placeholder="Email / Số điện thoại liên hệ *">
+                <button type="button" class="upload-btn"><i class="fa-solid fa-cloud-arrow-up"></i> Tải lên ảnh minh họa</button>
+                <textarea class="form-input form-textarea" placeholder="Mô tả chi tiết vấn đề..."></textarea>
+                <button type="button" class="btn-primary submit-btn" onclick="submitContactForm()"><i class="fa-solid fa-paper-plane"></i> GỬI TIN NHẮN</button>
+                <div class="divider"></div>
+                <div class="contact-cards">
+                    <a href="https://t.me/nhatpham27" target="_blank" class="contact-card card-tele">
+                        <i class="fa-brands fa-telegram" style="font-size: 32px;"></i> Chat Qua Telegram
+                    </a>
+                    <a href="https://zalo.me/84961547842" target="_blank" class="contact-card card-zalo">
+                        <i class="fa-solid fa-comment-sms" style="font-size: 32px;"></i> Chat Qua Zalo
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section about">
+                <h3>MUOPAUDIO.ONLINE</h3>
+                <p>Xem Phim Mướp Audio chất lượng cao, hỗ trợ phụ đề tiếng Việt, thuyết minh và lồng tiếng. Kho phim đa dạng, giao diện hiện đại mang đậm phong cách chuẩn iOS.</p>
+            </div>
+            <div class="footer-links-wrapper">
+                <div class="footer-section links">
+                    <h3>TRỢ GIÚP</h3>
+                    <ul>
+                        <li><a href="#">Điều khoản chung</a></li>
+                        <li><a href="#">Chính sách riêng tư</a></li>
+                        <li><a href="#">Sitemap</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section links">
+                    <h3>PHIMNET</h3>
+                    <ul>
+                        <li><a href="#">Trang chủ</a></li>
+                        <li><a href="#">Giới thiệu</a></li>
+                        <li><a href="#">Liên hệ</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 MuopAudio.online - Nền Tảng Xem Phim Đỉnh Cao. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
